@@ -1,0 +1,135 @@
+{
+  "name": "My workflow 2",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "bf9fde16-8418-416e-a98f-f0d297ba4a14",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "url": "https://api.apify.com/v2/datasets/Ry2DOsy48vLkR2Ugd/items?token="",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        208,
+        0
+      ],
+      "id": "185ba086-66d6-4fa6-821c-8115fb11db45",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "operation": "create",
+        "base": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "table": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        416,
+        0
+      ],
+      "id": "7928fa1e-6c52-42a9-809f-3e077db3d642",
+      "name": "Create a record",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "ZSU8NBGndBj44syM",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "get"
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        624,
+        0
+      ],
+      "id": "2b5fcd96-faf2-4b2e-9e29-19bc09539eb8",
+      "name": "Get a message",
+      "webhookId": "365cc7ab-8769-4fa8-ab74-ef4ac6efa491",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "nDBVgB1iPsUqSY4o",
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Create a record",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create a record": {
+      "main": [
+        [
+          {
+            "node": "Get a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "14ecbd06-cd88-4344-b51e-33f931a78b58",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "aa4fa398b2565b84c2015baeeadde75534a79e6ac6f9e2e5e02ac59c7bf5a909"
+  },
+  "id": "G7UMoSFtFDRPlVDt",
+  "tags": []
+}
